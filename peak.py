@@ -117,11 +117,20 @@ async def transcribe_and_translate_audio():
 
         try:
             audio = AudioSegment.from_file(temp_audio_file, format="ogg")
+            # Convert to mono
+            audio = audio.set_channels(1)
+            
+            # Set the frame rate to 48 kHz
+            audio = audio.set_frame_rate(48000)
+            
+            # Convert to 16-bit samples
+            audio = audio.set_sample_width(2)
             audio.export(converted_audio_file, format="wav")
             
-            # Read the converted WAV file
-            data, samplerate = sf.read(converted_audio_file)
-            print(f"Sample rate: {samplerate}, Data type: {data.dtype}")
+            # # Read the converted WAV file
+            # data, samplerate = sf.read(converted_audio_file)
+            # print(f"Sample rate: {samplerate}, Data type: {data.dtype}")
+            
         except Exception as e:
             print("Audio conversion failed:", str(e))
             raise
