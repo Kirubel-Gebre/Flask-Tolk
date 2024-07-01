@@ -134,8 +134,8 @@ async def transcribe_and_translate_audio():
         with open(temp_audio_file, "wb") as f:
             f.write(audio_file.read())
             
-        # sampling_rate, data = read_wav(converted_audio_file)
-        sampling_rate, data = read_wav(temp_audio_file)
+        sampling_rate, data = read_wav(converted_audio_file)
+        # sampling_rate, data = read_wav(temp_audio_file)
         return (sampling_rate, data)
 
         # audio_file = request.files.get('audio')
