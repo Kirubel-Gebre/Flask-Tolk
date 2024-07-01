@@ -127,12 +127,12 @@ async def transcribe_and_translate_audio():
     if is_geez == "true":
         transcribed_text = form_data.get('transcribedText', '')
         
-        audio_file = request.files.get("audio", "hello")
-    	# print(audio_file.read())
-        temp_audio_file = "temp_audio.ogg"
-        converted_audio_file = "temp_audio.wav"
-        with open(temp_audio_file, "wb") as f:
-            f.write(audio_file.read())
+     #    audio_file = request.files.get("audio", "hello")
+    	# # print(audio_file.read())
+     #    temp_audio_file = "temp_audio.ogg"
+     #    converted_audio_file = "temp_audio.wav"
+     #    with open(temp_audio_file, "wb") as f:
+     #        f.write(audio_file.read())
             
         audio_file = request.files.get('audio')
         temp_audio_file = "/tmp/temp_audio.ogg"
