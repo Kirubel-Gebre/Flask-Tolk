@@ -105,7 +105,7 @@ client = OpenAI()
 @app.route("/", methods=["POST"])
 async def transcribe_and_translate_audio():
     print("helloo")
-    form_data = await request.form()
+    form_data = await request.form
     print(form_data)
     is_geez = form_data.get('isGeez', "false")
     print(is_geez)
