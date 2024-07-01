@@ -187,9 +187,7 @@ async def transcribe_and_translate_audio():
         "translatedText": translated_text
     }
     json_data = json.dumps(response_data)
-    print(json_data)
-    print(translated_text)
-    print(transcribed_text)
+    return json_data
 
     response = make_response(json_data + "\n")
     response.set_data(response.get_data() + audio_bytes)
