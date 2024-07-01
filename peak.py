@@ -134,15 +134,11 @@ async def transcribe_and_translate_audio():
         with open(temp_audio_file, "wb") as f:
             f.write(audio_file.read())
             
-        sampling_rate, data = read_wav(converted_audio_file)
-        # sampling_rate, data = read_wav(temp_audio_file)
-        return (sampling_rate, data)
-
-        # audio_file = request.files.get('audio')
-        # temp_audio_file = "/tmp/temp_audio.ogg"
-        # converted_audio_file = "/tmp/temp_audio.wav"
-        # with open(temp_audio_file, "wb") as f:
-        #     f.write(await audio_file.read())
+        audio_file = request.files.get('audio')
+        temp_audio_file = "/tmp/temp_audio.ogg"
+        converted_audio_file = "/tmp/temp_audio.wav"
+        with open(temp_audio_file, "wb") as f:
+            f.write(await audio_file.read())
 
         try:
             audio = AudioSegment.from_file(temp_audio_file, format="ogg")
@@ -155,6 +151,9 @@ async def transcribe_and_translate_audio():
             print("Audio conversion failed:", str(e))
             raise
 
+        sampling_rate, data = read_wav(converted_audio_file)
+        # sampling_rate, data = read_wav(temp_audio_file)
+        return (sampling_rate, data)
         
         
 
