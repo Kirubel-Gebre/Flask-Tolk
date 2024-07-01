@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, Response, request, make_response
-# from flask_cors import CORS
+from flask_cors import CORS
 # from starlette.middleware.cors import CORSMiddleware
 # from fastapi.responses import StreamingResponse
 from google.cloud import speech_v1p1beta1 as speech
@@ -83,7 +83,7 @@ voice_options = {
 }
 
 app = Flask(__name__)
-# CORS(app, origins=["https://www.ai-tolk.nl/", "http://localhost:3000/"])
+CORS(app)
 client = OpenAI()
 
 # origins = [
