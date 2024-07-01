@@ -1,7 +1,0 @@
-www.ai-tolk.nl/api {
-	redir https://ai-tolk.nl{uri}
-}
-
-ai-tolk.nl/api {
-	reverse_proxy localhost:8000
-}
