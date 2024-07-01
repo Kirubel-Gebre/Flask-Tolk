@@ -146,7 +146,7 @@ async def transcribe_and_translate_audio():
             transcribed_text += result.alternatives[0].transcript
         
     else:
-        audio_file = await request.files['audio'].read()
+        audio_file = await (await request.files)['audio'].read()
         temp_audio_file = "temp_audio.wav"
         with open(temp_audio_file, "wb") as f:
             f.write(audio_file)
