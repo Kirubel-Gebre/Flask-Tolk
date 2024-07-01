@@ -128,7 +128,7 @@ async def transcribe_and_translate_audio():
         transcribed_text = form_data.get('transcribedText', '')
         
         audio_file = request.files.get("audio", "hello")
-    	print(audio_file.read())
+    	# print(audio_file.read())
         temp_audio_file = "temp_audio.ogg"
         converted_audio_file = "temp_audio.wav"
         with open(temp_audio_file, "wb") as f:
