@@ -2,7 +2,7 @@ from quart import Quart, jsonify, request, make_response
 from quart_cors import cors
 from google.cloud import speech_v1p1beta1 as speech
 from google.cloud import translate_v2 as translate
-from openai import OpenAI
+from openai import AsyncOpenAI
 import os
 import io
 import json
@@ -82,7 +82,7 @@ voice_options = {
 
 app = Quart(__name__)
 app = cors(app)
-client = OpenAI()
+client = AsyncOpenAI()
 
 @app.route("/", methods=["POST"])
 async def transcribe_and_translate_audio():
@@ -147,7 +147,7 @@ async def transcribe_and_translate_audio():
         
     else:
         audio_file = (await request.files)['audio'].read()
-        print(audio_file)
+        # print(audio_file)
         temp_audio_file = "temp_audio.wav"
         with open(temp_audio_file, "wb") as f:
             f.write(audio_file)
