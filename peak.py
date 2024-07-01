@@ -109,7 +109,7 @@ async def transcribe_and_translate_audio():
     if is_geez == "true":
         transcribed_text = form_data.get('transcribedText', '')
         
-        audio_file = await request.files.get("audio")
+        audio_file = request.files.get("audio")
         temp_audio_file = "temp_audio.ogg"
         converted_audio_file = "temp_audio.wav"
         with open(temp_audio_file, "wb") as f:
@@ -146,7 +146,7 @@ async def transcribe_and_translate_audio():
             transcribed_text += result.alternatives[0].transcript
         
     else:
-        audio_file = await request.files.get("audio")
+        audio_file = request.files.get("audio")
         temp_audio_file = "temp_audio.wav"
         with open(temp_audio_file, "wb") as f:
             f.write(await audio_file.read())
