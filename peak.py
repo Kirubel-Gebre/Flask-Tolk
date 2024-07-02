@@ -198,7 +198,8 @@ async def transcribe_and_translate_audio():
     json_data = json.dumps(response_data)
 
     response = await make_response(json_data + "\n")
-    response.set_data(response.get_data() + audio_bytes)
+    response_data = await response.get_data()
+    response.set_data(response_data + audio_bytes)
     response.headers['Content-Type'] = 'application/json'
     response.headers['Audio-Type'] = 'audio/mpeg'
     
