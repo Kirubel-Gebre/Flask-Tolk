@@ -11,6 +11,7 @@ from pydub import AudioSegment
 from scipy.io.wavfile import read as read_wav
 import soundfile as sf
 import numpy as np
+import magic
 
 os.environ["FFPROBE_PATH"] = "/usr/local/bin/ffprobe"
 AudioSegment.ffprobe = os.environ["FFPROBE_PATH"]
@@ -83,6 +84,10 @@ voice_options = {
 app = Quart(__name__)
 app = cors(app)
 client = AsyncOpenAI()
+
+def get_audio_file_type(file_path):
+    mime = magic.Magic(mime=True)
+    return mime.from_file(file_path)
 
 @app.route("/", methods=["POST"])
 async def transcribe_and_translate_audio():
