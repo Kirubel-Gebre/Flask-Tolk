@@ -115,8 +115,32 @@ async def transcribe_and_translate_audio():
         with open(temp_audio_file, "wb") as f:
             f.write(audio_file)
 
+        # try:
+        #     audio = AudioSegment.from_file(temp_audio_file, format="ogg")
+        #     # Convert to mono
+        #     audio = audio.set_channels(1)
+            
+        #     # Set the frame rate to 48 kHz
+        #     audio = audio.set_frame_rate(48000)
+            
+        #     # Convert to 16-bit samples
+        #     audio = audio.set_sample_width(2)
+        #     audio.export(converted_audio_file, format="wav")
+            
+        #     # # Read the converted WAV file
+        #     # data, samplerate = sf.read(converted_audio_file)
+        #     # print(f"Sample rate: {samplerate}, Data type: {data.dtype}")
         try:
-            audio = AudioSegment.from_file(temp_audio_file, format="ogg")
+            # Determine the file type
+            file_type = get_audio_file_type(temp_audio_file)
+            
+            if file_type == "audio/ogg":
+                audio = AudioSegment.from_file(temp_audio_file, format="ogg")
+            elif file_type == "audio/wav":
+                audio = AudioSegment.from_file(temp_audio_file, format="wav")
+            else:
+                raise ValueError("Unsupported audio file format")
+            
             # Convert to mono
             audio = audio.set_channels(1)
             
@@ -126,10 +150,6 @@ async def transcribe_and_translate_audio():
             # Convert to 16-bit samples
             audio = audio.set_sample_width(2)
             audio.export(converted_audio_file, format="wav")
-            
-            # # Read the converted WAV file
-            # data, samplerate = sf.read(converted_audio_file)
-            # print(f"Sample rate: {samplerate}, Data type: {data.dtype}")
             
         except Exception as e:
             print("Audio conversion failed:", str(e))
