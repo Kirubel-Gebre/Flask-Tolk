@@ -141,10 +141,12 @@ async def transcribe_and_translate_audio():
             
             if file_type == "audio/ogg":
                 audio = AudioSegment.from_file(temp_audio_file, format="ogg")
-            elif file_type == "audio/wav":
-                audio = AudioSegment.from_file(temp_audio_file, format="wav")
+            # elif file_type == "audio/wav":
+            #     audio = AudioSegment.from_file(temp_audio_file, format="wav")
+            # else:
+            #     raise ValueError("Unsupported audio file format")
             else:
-                raise ValueError("Unsupported audio file format")
+                audio = AudioSegment.from_file(temp_audio_file, format="wav")
             
             # Convert to mono
             audio = audio.set_channels(1)
