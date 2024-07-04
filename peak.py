@@ -12,6 +12,8 @@ from scipy.io.wavfile import read as read_wav
 import soundfile as sf
 import numpy as np
 import magic
+import logging
+import sys
 
 os.environ["FFPROBE_PATH"] = "/usr/local/bin/ffprobe"
 AudioSegment.ffprobe = os.environ["FFPROBE_PATH"]
@@ -85,6 +87,19 @@ app = Quart(__name__)
 app = cors(app)
 client = AsyncOpenAI()
 
+log_file = open('quart_app.log', 'a')
+sys.stdout = log_file
+sys.stderr = log_file
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,  # Set the logging level
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(sys.stdout)  # Log to the redirected stdout
+    ]
+)
+
 def get_audio_file_type(file_path):
     mime = magic.Magic(mime=True)
     return mime.from_file(file_path)
@@ -140,8 +155,14 @@ async def transcribe_and_translate_audio():
             file_type = get_audio_file_type(temp_audio_file)
 
             try:
+                temp_audio_file = "temp_audio.wav"
+                with open(temp_audio_file, "wb") as f:
+                    f.write(audio_file)
                 audio = AudioSegment.from_file(temp_audio_file, format="wav")
             except:
+                temp_audio_file = "temp_audio.ogg"
+                with open(temp_audio_file, "wb") as f:
+                    f.write(audio_file)
                 audio = AudioSegment.from_file(temp_audio_file, format="ogg")
                 
             # elif file_type == "audio/wav":
