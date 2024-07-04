@@ -153,6 +153,7 @@ async def transcribe_and_translate_audio():
         try:
             # Determine the file type
             file_type = get_audio_file_type(temp_audio_file)
+            print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa:   " , file_type)
 
             try:
                 temp_audio_file = "temp_audio.wav"
