@@ -8,6 +8,7 @@ import io
 import json
 import requests
 from pydub import AudioSegment
+from pydub.utils import mediainfo
 from scipy.io.wavfile import read as read_wav
 import soundfile as sf
 import numpy as np
@@ -165,9 +166,10 @@ async def transcribe_and_translate_audio():
             else:
                 raise ValueError("Unsupported audio file format")
 
-            sampling_rate, data = read_wav(converted_audio_file)
-
-            print(sampling_rate)
+            # Check the sample rate of the original audio file
+            info = mediainfo(temp_audio_file)
+            original_sample_rate = int(info['sample_rate'])
+            print(f"Original audio sample rate: {original_sample_rate} Hz")
             
             # Convert to mono
             audio = audio.set_channels(1)
