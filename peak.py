@@ -164,6 +164,10 @@ async def transcribe_and_translate_audio():
                 audio = AudioSegment.from_file(temp_audio_file, format="wav")
             else:
                 raise ValueError("Unsupported audio file format")
+
+            sampling_rate, data = read_wav(converted_audio_file)
+
+            print(sampling_rate)
             
             # Convert to mono
             audio = audio.set_channels(1)
